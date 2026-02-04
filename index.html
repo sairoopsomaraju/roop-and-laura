@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Why Laura Shouldn't Be Mad at Roop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root{
+      --bg1:#0f2027; --bg2:#203a43; --bg3:#2c5364;
+      --card: rgba(255,255,255,.10);
+      --stroke: rgba(255,255,255,.14);
+      --text:#ffffff; --muted:#e7e7e7;
+      --accent:#ffcc70; --good:#4ade80;
+      --soft:#b8c7ff;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-rounded, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      background: linear-gradient(120deg, var(--bg1), var(--bg2), var(--bg3));
+      color:var(--text);
+    }
+    header{
+      padding: 26px 18px 6px;
+      text-align:center;
+    }
+    header h1{
+      margin:0;
+      font-size: clamp(28px, 4vw, 48px);
+      letter-spacing:.2px;
+    }
+    header p{
+      margin:10px auto 0;
+      max-width: 980px;
+      color: var(--muted);
+      line-height:1.6;
+      font-size: 16px;
+    }
+    .wrap{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 12px 18px 70px;
+    }
+    section{
+      margin-top: 18px;
+      padding: 22px;
+      border-radius: 20px;
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      box-shadow: 0 12px 40px rgba(0,0,0,.30);
+      text-align:center;
+    }
+    h2{ margin:0 0 10px; font-size:22px; }
+    p{ margin:10px 0; color:var(--muted); font-size:17px; line-height:1.65; }
+    .tiny{ font-size:13px; opacity:.85; color: var(--muted); }
+    .divider{ text-align:center; font-size: 30px; margin-top: 18px; opacity:.95; }
+    .pill{
+      display:inline-block;
+      margin-top:10px;
+      padding:8px 12px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.18);
+      border: 1px solid rgba(255,255,255,.14);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Photos sprinkled everywhere */
+    .photos{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+    .photos img{
+      width:100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.15);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity .35s ease, transform .35s ease;
+    }
+    .photos img.loaded{ opacity:1; transform: translateY(0); }
+
+    .quote{
+      text-align:left;
+      font-style: italic;
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin: 10px 0;
+      background: rgba(0,0,0,.18);
+      border: 1px dashed rgba(255,255,255,.22);
+      color: #f2f2f2;
+    }
+
+    .memegrid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 12px;
+      text-align:left;
+    }
+    @media (min-width: 820px){
+      .memegrid{ grid-template-columns: 1fr 1fr; }
+    }
+    .meme{
+      border-radius: 16px;
+      padding: 14px 16px;
+      background: rgba(0,0,0,.18);
+      border: 1px solid rgba(255,255,255,.16);
+    }
+    .meme .tag{
+      display:inline-block;
+      font-size: 12px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.18);
+      color: var(--soft);
+      margin-bottom: 8px;
+    }
+    .meme b{ color:#fff; }
+
+    .sorrybox{
+      margin-top: 10px;
+      border-radius: 18px;
+      padding: 18px;
+      background: rgba(251,113,133,.10);
+      border: 2px dashed rgba(251,113,133,.75);
+      text-align:left;
+    }
+    .sorrybox .title{
+      font-weight: 900;
+      letter-spacing: .2px;
+      margin-bottom: 8px;
+    }
+
+    .meter{
+      max-width: 720px;
+      margin: 0 auto;
+      text-align:left;
+    }
+    input[type=range]{ width:100%; margin-top: 10px; }
+
+    .fixes{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:10px;
+      margin-top: 12px;
+    }
+    .fixes button{
+      padding: 12px 14px;
+      border-radius: 14px;
+      border:none;
+      cursor:pointer;
+      background: var(--accent);
+      color:#1d1d1d;
+      font-weight: 800;
+      transition: transform .12s ease;
+    }
+    .fixes button:hover{ transform: scale(1.04); }
+    .result{
+      margin-top: 14px;
+      color:#fff;
+      font-weight: 750;
+      text-align:center;
+    }
+
+    .callbox{
+      margin-top: 10px;
+      border-radius: 18px;
+      background: rgba(74,222,128,.18);
+      border: 1px solid rgba(74,222,128,.45);
+      padding: 18px;
+      text-align:center;
+    }
+    .callbox a{
+      display:inline-block;
+      margin-top: 10px;
+      background: var(--good);
+      color:#063b21;
+      text-decoration:none;
+      padding: 12px 16px;
+      border-radius: 14px;
+      font-weight: 900;
+    }
+
+    footer{
+      margin-top: 18px;
+      opacity: .75;
+      font-size: 13px;
+      color: var(--muted);
+      text-align:center;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Why Laura shouldn’t be mad at Roop</h1>
+    <p>
+      A tiny website made with equal parts effort and “please don’t hate me” energy —
+      but in a <b>funny</b> way, not a dramatic way. 🙃
+      <br>
+      (Disclaimer: This is not a contract. But it is a very sincere vibe.)
+    </p>
+  </header>
+
+  <div class="wrap">
+
+    <!-- 1) Great days before -->
+    <section>
+      <h2>✨ We had great days before ✨</h2>
+      <p>
+        We have a lot of great days behind us — the kind that don’t just become memories,
+        they become <b>random flashbacks</b> that make you smile at the worst possible time
+        (like when you’re trying to act serious in public).
+      </p>
+      <p>
+        Honestly… those memories are unforgettable. If memories had rent,
+        these ones are living in my head <b>rent-free</b>.
+      </p>
+
+      <div class="pill">Photos are sprinkled across the site in random order. No repeats. 🎲</div>
+      <div class="photos sprinkle" data-count="4"></div>
+
+      <p class="tiny">
+        Pro tip: if you refresh, the order changes — like Roop trying different strategies to not get in trouble.
+      </p>
+    </section>
+
+    <div class="divider">💛💛💛</div>
+
+    <!-- 2) Few days ahead -->
+    <section>
+      <h2>⏳ We have just a few days ahead to go 😔</h2>
+      <p>
+        And that makes me think…
+        why spend those days in “cold war mode” when we could be in “laughing at dumb things” mode?
+      </p>
+      <p class="tiny">
+        Also: if we stay mad, who will laugh at the same joke 37 times? Exactly.
+      </p>
+
+      <div class="photos sprinkle" data-count="3"></div>
+    </section>
+
+    <div class="divider">🤝</div>
+
+    <!-- 3) Honesty / balance -->
+    <section>
+      <h2>Roop 🤝 Laura: Honesty + Care</h2>
+      <p>
+        Roop was always honest with Laura — just like Laura was honest with Roop.
+        No games. No weird guessing. Just real talk.
+      </p>
+      <p>
+        Laura makes sure Roop is happy… and Roop tries to do the same.
+        (Sometimes successfully. Sometimes… with “men logic.” But still trying. 😅)
+      </p>
+
+      <div class="quote">“Laura: emotionally intelligent. Roop: emotionally… present. (Most days.)”</div>
+      <div class="quote">“Laura checks in with feelings. Roop checks in with solutions. Both are trying.”</div>
+      <div class="quote">“Communication: ✅  Effort: ✅  Timing: …work in progress patch coming soon.”</div>
+
+      <div class="memegrid">
+        <div class="meme">
+          <div class="tag">meme caption</div>
+          <b>Laura:</b> “I’m upset.”<br>
+          <b>Roop’s brain:</b> “Okay, step 1: make a website.”
+        </div>
+        <div class="meme">
+          <div class="tag">meme caption</div>
+          <b>Roop:</b> “I’ll fix it.”<br>
+          <b>Also Roop:</b> proceeds to overthink for 6 hours and write 3 drafts.
+        </div>
+      </div>
+
+      <div class="photos sprinkle" data-count="4"></div>
+    </section>
+
+    <div class="divider">🤡</div>
+
+    <!-- 4) Funny-subtle sorry -->
+    <section>
+      <h2>The part where Roop tries to say sorry… without being cringe</h2>
+      <p>
+        Okay so… imagine Roop standing here holding a tiny sign that says:
+        <b>“I care about you and I don’t want you upset”</b> — but also he’s trying not to be dramatic,
+        so he’s pretending it’s a joke. (But it’s not fully a joke.)
+      </p>
+
+      <div class="sorrybox">
+        <div class="title">Official Apology Filing (Comedy Edition)</div>
+        <div>
+          Dear Laura,<br><br>
+          I know I’m not perfect. Sometimes I say something dumb, or do something dumb,
+          or confidently do something dumb and call it “efficiency.”<br><br>
+          If I made you upset, that genuinely matters to me.
+          Not in a “please forgive me immediately” way — in a
+          “you deserve better than stress because of me” way.<br><br>
+          So yes… this is me saying: I’m sorry.
+          Softly. Respectfully. With zero manipulation.
+          And with maximum intention to do better.<br><br>
+          — Roop 🫠
+        </div>
+      </div>
+
+      <p class="tiny">
+        (Also Roop is willing to accept a reasonable punishment as decided by Laura’s Supreme Court.)
+      </p>
+
+      <div class="photos sprinkle" data-count="2"></div>
+    </section>
+
+    <div class="divider">😡</div>
+
+    <!-- 5) Anger meter -->
+    <section>
+      <h2>Laura’s Anger Meter™</h2>
+      <div class="meter">
+        <p id="angerText"><b>Status:</b> Mad 😬 (but open to negotiations)</p>
+        <input type="range" min="0" max="100" value="60" oninput="updateAnger(this.value)" />
+        <p class="tiny" id="angerHint">Tip: move it left slowly… like your patience with Roop.</p>
+      </div>
+
+      <div class="photos sprinkle" data-count="3"></div>
+    </section>
+
+    <!-- 6) Fix options -->
+    <section>
+      <h2>How should Roop fix this?</h2>
+      <p>
+        Choose one solution below. Roop will accept the verdict with no “but I meant…”
+        and no “technically…”. Just action. 🫡
+      </p>
+
+      <div class="fixes">
+        <button onclick="pickFix('Fix with Food 🍕 (universal peace treaty)')">Fix with Food 🍕</button>
+        <button onclick="pickFix('Funny Dance 💃 (to a song YOU select)')">Dance 💃</button>
+        <button onclick="pickFix('Flowers 🌸 (not the boring kind)')">Flowers 🌸</button>
+        <button onclick="pickFix('Walk in freezing night ❄️ (hero mode)')">Cold Walk ❄️</button>
+        <button onclick="pickFix('Be silent 🤐 (respectfully, not passive-aggressive)')">Be Silent 🤐</button>
+      </div>
+
+      <div class="result" id="fixResult"></div>
+      <p class="tiny" id="fixSub"></p>
+
+      <div class="photos sprinkle" data-count="5"></div>
+    </section>
+
+    <div class="divider">📞</div>
+
+    <!-- 7) Call -->
+    <section>
+      <h2>If you’re okay with it…</h2>
+      <p>
+        If you feel like talking — even just a little —
+        you can call Roop. No pressure. No drama. Just respect.
+      </p>
+
+      <div class="callbox">
+        <div><b>Click to call:</b></div>
+        <!-- TODO: replace with your real number -->
+        <a href="tel:+15405585357">Call Roop ❤️</a>
+      </div>
+
+      <div class="photos sprinkle" data-count="3"></div>
+
+      <footer>
+        Made with effort, humor, and accountability.<br>
+        Roop will behave. Laura will remain iconic.
+      </footer>
+    </section>
+
+  </div>
+
+  <!-- Auto-generated list of photos -->
+  <script src="photos.js"></script>
+
+  <script>
+    // --- Anger Meter ---
+    function updateAnger(v) {
+      const t = document.getElementById("angerText");
+      const hint = document.getElementById("angerHint");
+      const n = Number(v);
+
+      if (n < 15) {
+        t.innerHTML = "<b>Status:</b> Not mad 🙂 (suspiciously calm)";
+        hint.textContent = "Roop: *smiles carefully* — ‘we good?’";
+      } else if (n < 40) {
+        t.innerHTML = "<b>Status:</b> Annoyed 😒 (eye-roll territory)";
+        hint.textContent = "Correct response: listening + snack offering.";
+      } else if (n < 75) {
+        t.innerHTML = "<b>Status:</b> Mad 😬 (negotiable)";
+        hint.textContent = "Proceed with humility. No freestyle explanations.";
+      } else {
+        t.innerHTML = "<b>Status:</b> Extremely Mad 😵‍💫 (danger zone)";
+        hint.textContent = "Emergency protocol: apologize + be quiet + be kind.";
+      }
+    }
+
+    // --- Fix picker ---
+    function pickFix(text) {
+      document.getElementById("fixResult").textContent =
+        "Selected solution: " + text + " ✅";
+      document.getElementById("fixSub").textContent =
+        "Roop’s response: accepted. No arguments. Just action. 🫡";
+    }
+
+    // --- Photos: sprinkle everywhere, random order, NO REPEATS ---
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function sprinklePhotosNoRepeat() {
+      const blocks = Array.from(document.querySelectorAll(".photos.sprinkle"));
+
+      if (!window.photos || !Array.isArray(window.photos) || window.photos.length === 0) {
+        blocks.forEach(b => b.innerHTML = "<p class='tiny'>Add photos to /photos and regenerate photos.js</p>");
+        return;
+      }
+
+      const pool = shuffle([...window.photos]);
+      let idx = 0;
+
+      blocks.forEach(block => {
+        const count = Math.max(0, parseInt(block.dataset.count || "0", 10));
+        for (let i = 0; i < count && idx < pool.length; i++, idx++) {
+          const img = document.createElement("img");
+          img.src = pool[idx];
+          img.alt = "memory";
+          img.loading = "lazy";
+          img.addEventListener("load", () => img.classList.add("loaded"));
+          block.appendChild(img);
+        }
+
+        // If no photos left, just leave the block empty (no duplicates)
+        if (idx >= pool.length && count > 0 && block.children.length === 0) {
+          // optional: show nothing; keeping subtle.
+        }
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      updateAnger(60);
+      sprinklePhotosNoRepeat();
+    });
+  </script>
+</body>
+</html>

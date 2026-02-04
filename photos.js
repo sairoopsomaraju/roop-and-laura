@@ -1,0 +1,19 @@
+window.photos = [
+  "photos/1.jpg",
+  "photos/2.jpg",
+  "photos/3.jpg",
+  "photos/491BA5D1-557A-4EE5-917A-67399607C353.jpg",
+  "photos/IMG_1436.jpeg",
+  "photos/IMG_1482.jpeg",
+  "photos/IMG_1864.jpeg",
+  "photos/IMG_3035.jpeg",
+  "photos/IMG_3241.jpeg",
+  "photos/IMG_3334.jpeg",
+  "photos/IMG_3439.jpeg",
+  "photos/IMG_3583.jpeg",
+  "photos/IMG_5340.jpeg",
+  "photos/IMG_6558.jpeg",
+  "photos/IMG_8500.jpeg",
+  "photos/IMG_8917.jpeg",
+  "photos/IMG_9561.jpeg"
+];
