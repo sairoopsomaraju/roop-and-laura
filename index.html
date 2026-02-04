@@ -353,6 +353,56 @@
       <div class="photos sprinkle" data-count="5"></div>
     </section>
 
+    <section>
+      <h2>Your turn (only if you want)</h2>
+      <p>
+        If you feel like saying something — even one line —
+        you can write it here. This will only go to Roop.
+      </p>
+
+      <textarea id="herMessage"
+        placeholder="Write anything you want… (optional)"
+        style="
+          width:100%;
+          max-width:700px;
+          height:120px;
+          padding:12px;
+          border-radius:14px;
+          border:1px solid rgba(255,255,255,.25);
+          background:rgba(0,0,0,.25);
+          color:white;
+          font-size:15px;
+        "></textarea>
+
+      <p class="tiny">Nothing is sent automatically. You decide.</p>
+    </section>  
+
+    <section>
+      <h2>Send this to Roop</h2>
+      <p>
+        This will open your email app with everything filled in.
+        You can edit or delete anything before sending.
+      </p>
+
+      <button
+        onclick="sendEmailToRoop()"
+        style="
+          padding:14px 18px;
+          font-size:16px;
+          border-radius:14px;
+          border:none;
+          cursor:pointer;
+          background:#4ade80;
+          color:#063b21;
+          font-weight:800;
+        ">
+        📧 Send to Roop
+      </button>
+
+      <p class="tiny">Opens your email app — nothing is auto-sent.</p>
+    </section>
+
+
     <div class="divider">📞</div>
 
     <!-- 7) Call -->
@@ -383,8 +433,14 @@
   <script src="photos.js"></script>
 
   <script>
+    // --- Email reporting setup ---
+    const ROOP_EMAIL = "sairoop10@gmail.com"; // 🔴 CHANGE to your email
+    let selectedFix = "Not selected yet";
+    let angerValue = 60;
+
     // --- Anger Meter ---
     function updateAnger(v) {
+      angerValue = Number(v);
       const t = document.getElementById("angerText");
       const hint = document.getElementById("angerHint");
       const n = Number(v);
@@ -406,6 +462,7 @@
 
     // --- Fix picker ---
     function pickFix(text) {
+      selectedFix = text;
       document.getElementById("fixResult").textContent =
         "Selected solution: " + text + " ✅";
       document.getElementById("fixSub").textContent =
@@ -449,6 +506,29 @@
         }
       });
     }
+
+    function sendEmailToRoop() {
+      const message =
+        document.getElementById("herMessage")?.value || "(No message written)";
+
+      const subject = encodeURIComponent("From Laura 💛");
+      const body = encodeURIComponent(
+    `Hey Roop,
+
+    Here’s how I responded to your website:
+
+    Anger level: ${angerValue}/100
+    Selected fix: ${selectedFix}
+
+    My message:
+    "${message}"
+
+    — Laura`
+      );
+
+      window.location.href = `mailto:${ROOP_EMAIL}?subject=${subject}&body=${body}`;
+    }
+
 
     document.addEventListener("DOMContentLoaded", () => {
       updateAnger(60);
